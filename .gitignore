@@ -184,3 +184,5 @@ target
 README.html
 .exercism
 .sts4-cache
+/.mvn/
+/.idea/
