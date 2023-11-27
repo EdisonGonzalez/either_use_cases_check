@@ -112,6 +112,7 @@ hs_err_pid*
 
 ### Maven ###
 target/
+target/classes/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -148,10 +149,11 @@ $RECYCLE.BIN/
 *.lnk
 
 ### IntelliJ IDEA ###
-.idea
 *.iws
 *.iml
 *.ipr
+.idea/
+.mvn/
 
 ### NetBeans ###
 /nbproject/private/
