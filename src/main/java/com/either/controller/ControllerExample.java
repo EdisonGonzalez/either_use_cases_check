@@ -23,4 +23,9 @@ public class ControllerExample {
                         errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
                         result -> new ResponseEntity<>(ResponseBody.builder().message(result).build(), HttpStatus.OK));
     }
+
+    @GetMapping(value = "/error")
+    public void error() {
+        checkBusinessRules.getError();
+    }
 }
