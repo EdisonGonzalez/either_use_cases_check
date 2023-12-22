@@ -1,4 +1,4 @@
-package com.either.response;
+package com.either.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseBody {
+public class BodyResponse {
     private String message;
 }

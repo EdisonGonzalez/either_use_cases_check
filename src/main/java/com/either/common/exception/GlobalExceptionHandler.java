@@ -1,7 +1,6 @@
-package com.either.common;
+package com.either.common.exception;
 
-import com.either.error.ErrorMessage;
-import com.either.exception.ResourceNotFoundException;
+import com.either.common.error.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

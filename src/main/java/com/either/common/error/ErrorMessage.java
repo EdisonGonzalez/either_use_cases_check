@@ -1,4 +1,4 @@
-package com.either.error;
+package com.either.common.error;
 
 import lombok.*;
 

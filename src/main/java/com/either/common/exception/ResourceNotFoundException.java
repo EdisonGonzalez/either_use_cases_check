@@ -1,4 +1,4 @@
-package com.either.exception;
+package com.either.common.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {
