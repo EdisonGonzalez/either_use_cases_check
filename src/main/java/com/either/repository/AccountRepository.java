@@ -1,11 +1,9 @@
 package com.either.repository;
 
-import com.either.common.domain.Account;
-import com.either.common.error.ErrorMessage;
-import io.vavr.control.Either;
+import com.either.model.entity.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.List;
 
-public interface AccountRepository {
-    Either<ErrorMessage, List<Account>> getAll(String resourceName);
+public interface AccountRepository extends JpaRepository<Account, Long>, JpaSpecificationExecutor<Account> {
 }

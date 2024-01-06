@@ -1,17 +1,18 @@
 package com.either.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
+@Getter
+@Setter
+@MappedSuperclass
 public class Audit {
+    @Column(name = "created_by")
     private String createdBy;
+
+    @Column(name = "created_date")
     private LocalDate createdDate;
 }

@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,12 +44,11 @@ public class ControllerExample {
   @GetMapping(
       value = "/get/all/accounts/{resourceName}/operation",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> getAllAccounts(
-          @PathVariable String resourceName, @RequestParam String filterParams) {
+  public ResponseEntity<?> getAllAccounts(@RequestParam String filterParams) {
     log.info("getAllAccounts with operation {}", filterParams);
     Either<ErrorMessage, List<AccountResponse>> result =
         checkBusinessRules
-            .applyOperationsWithEither(resourceName, filterParams)
+            .applyOperationsWithEither(filterParams)
             .map(accountMapper::mapDomainToDtoList);
     log.debug("result: {}", result);
     return result.fold(

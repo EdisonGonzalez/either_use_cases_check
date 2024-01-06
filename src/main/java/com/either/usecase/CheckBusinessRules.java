@@ -3,7 +3,7 @@ package com.either.usecase;
 import com.either.common.domain.Account;
 import com.either.common.error.ErrorMessage;
 import com.either.common.exception.ResourceNotFoundException;
-import com.either.repository.AccountRepository;
+import com.either.service.AccountService;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class CheckBusinessRules {
-  private final AccountRepository accountRepository;
+  private final AccountService accountService;
 
   public Either<ErrorMessage, String> getEither(boolean isRight) {
     return isRight
@@ -29,11 +29,11 @@ public class CheckBusinessRules {
     throw new ResourceNotFoundException("with ID: " + uuid);
   }
 
-  public Either<ErrorMessage, List<Account>> applyOperationsWithEither(String resourceName, String filterParams) {
+  public Either<ErrorMessage, List<Account>> applyOperationsWithEither(String filterParams) {
     Either<ErrorMessage, List<Account>> dbAccountList =
-        accountRepository
-            .getAll(resourceName);
-                //.filter(accountList -> accountList.stream().filter(Account::isActive).toList());
+        accountService
+            .getAllApplyingFilter(filterParams);
+            //.filter(accountList -> accountList.stream().filter(Account::isActive).toList()); // Note: Comment code is part of exposition
     log.debug("dbAccountList: {}", dbAccountList);
     return dbAccountList;
   }
