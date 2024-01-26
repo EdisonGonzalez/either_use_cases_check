@@ -44,7 +44,7 @@ public class ControllerExample {
   @GetMapping(
       value = "/get/all/accounts/{resourceName}/operation",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> getAllAccounts(@RequestParam String filterParams) {
+  public ResponseEntity<?> getAllAccounts(@RequestParam(required = false) String filterParams) {
     log.info("getAllAccounts with operation {}", filterParams);
     Either<ErrorMessage, List<AccountResponse>> result =
         checkBusinessRules

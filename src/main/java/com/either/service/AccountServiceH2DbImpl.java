@@ -24,13 +24,17 @@ public class AccountServiceH2DbImpl implements AccountService {
   private final AccountRepository accountRepository;
   private final AccountMapper accountMapper;
 
-  public Either<ErrorMessage, List<com.either.common.domain.Account>> getAllApplyingFilter(String filters) {
+  public Either<ErrorMessage, List<com.either.common.domain.Account>> getAllApplyingFilter(
+      String filters) {
     log.debug("get all accounts with filters: {}", filters);
     try {
       List<Account> accountList;
       if (StringUtils.hasText(filters)) {
         SpecificationBuilder builder = new SpecificationBuilder();
-        Pattern pattern = Pattern.compile("(\\w+?)\\s*(like|<|>)\\s*(\\w+?)\\s*(\\.|AND|OR|and|or)");
+        Pattern pattern =
+            Pattern.compile(
+                "(\\w+?)\\s*(=|like|<|>|>=|<=)\\s*(\\d{4}-\\d{2}-\\d{2}|\\w+?)\\s*(\\.|AND|OR)",
+                Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(filters + ".");
         boolean oneMatch = false;
         while (matcher.find()) {
@@ -42,7 +46,6 @@ public class AccountServiceH2DbImpl implements AccountService {
       } else {
         accountList = accountRepository.findAll();
       }
-
 
       Either<ErrorMessage, List<com.either.common.domain.Account>> listFromResource =
           Either.right(accountList.stream().map(accountMapper::mapModelToDomain).toList());
