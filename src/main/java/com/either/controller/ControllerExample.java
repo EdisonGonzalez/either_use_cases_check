@@ -42,7 +42,7 @@ public class ControllerExample {
   }
 
   @GetMapping(
-      value = "/get/all/accounts/{resourceName}/operation",
+      value = "/get/all/accounts/operation",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> getAllAccounts(@RequestParam(required = false) String filterParams) {
     log.info("getAllAccounts with operation {}", filterParams);
@@ -54,5 +54,15 @@ public class ControllerExample {
     return result.fold(
         errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
         accountResponseList -> new ResponseEntity<>(accountResponseList, HttpStatus.OK));
+  }
+
+  @GetMapping(
+          value = "/check/operations",
+          produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> checkOperations() {
+    log.info("checkOperations");
+    checkBusinessRules.moreOperationsWithEither();
+    log.trace("checkOperations finished");
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
