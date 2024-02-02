@@ -68,18 +68,20 @@ public class ControllerExample {
     Either<NewError, Account> result = checkBusinessRules.getAccountById(id);
     log.trace("getAccountById finished with result: {}", result);
     return result.fold(
-            errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
-            account -> new ResponseEntity<>(account, HttpStatus.OK));
+        errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
+        account -> new ResponseEntity<>(account, HttpStatus.OK));
   }
 
-  @PostMapping  (value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> registerUser(@RequestParam String username, @RequestParam String password) {
+  @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> registerUser(
+      @RequestParam String username, @RequestParam String password) {
     log.trace("register user: {}", username);
-    Either<String, String> result =
-            checkBusinessRules.checkPassword(password);
+    //    Either<String, String> result =
+    //            checkBusinessRules.checkPassword(password);
+    Either<List<String>, String> result = checkBusinessRules.checkPassword(password);
     log.debug("result: {}", result);
     return result.fold(
-            errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
-            okValidation -> new ResponseEntity<>(okValidation, HttpStatus.OK));
+        errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
+        okValidation -> new ResponseEntity<>(okValidation, HttpStatus.OK));
   }
 }

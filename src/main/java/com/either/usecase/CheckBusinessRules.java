@@ -137,7 +137,9 @@ public class CheckBusinessRules {
     return accountService.getAccountById(id);
   }
 
-  public Either<String, String> checkPassword(String password) {
-    return registrationService.validatePassword(password);
+  // public Either<String, String> checkPassword(String password) {
+  public Either<List<String>, String> checkPassword(String password) {
+    // return registrationService.validatePassword(password);
+    return registrationService.validatePassword2(password);
   }
 }
