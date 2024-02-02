@@ -13,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Random;
@@ -73,5 +70,16 @@ public class ControllerExample {
     return result.fold(
             errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
             account -> new ResponseEntity<>(account, HttpStatus.OK));
+  }
+
+  @PostMapping  (value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> registerUser(@RequestParam String username, @RequestParam String password) {
+    log.trace("register user: {}", username);
+    Either<String, String> result =
+            checkBusinessRules.checkPassword(password);
+    log.debug("result: {}", result);
+    return result.fold(
+            errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
+            okValidation -> new ResponseEntity<>(okValidation, HttpStatus.OK));
   }
 }

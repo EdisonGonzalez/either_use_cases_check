@@ -5,6 +5,7 @@ import com.either.common.domain.NewError;
 import com.either.common.error.ErrorMessage;
 import com.either.common.exception.ResourceNotFoundException;
 import com.either.service.AccountService;
+import com.either.service.RegistrationService;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Slf4j
 public class CheckBusinessRules {
   private final AccountService accountService;
+  private final RegistrationService registrationService;
 
   public Either<ErrorMessage, String> getEither(boolean isRight) {
     return isRight
@@ -133,5 +135,9 @@ public class CheckBusinessRules {
 
   public Either<NewError, Account> getAccountById(String id) {
     return accountService.getAccountById(id);
+  }
+
+  public Either<String, String> checkPassword(String password) {
+    return registrationService.validatePassword(password);
   }
 }
