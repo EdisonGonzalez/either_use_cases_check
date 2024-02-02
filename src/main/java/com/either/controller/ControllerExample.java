@@ -1,5 +1,7 @@
 package com.either.controller;
 
+import com.either.common.domain.Account;
+import com.either.common.domain.NewError;
 import com.either.common.error.ErrorMessage;
 import com.either.mapper.AccountMapper;
 import com.either.model.dto.AccountResponse;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,9 +44,7 @@ public class ControllerExample {
     checkBusinessRules.getError();
   }
 
-  @GetMapping(
-      value = "/get/all/accounts/operation",
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/get/all/accounts/operation", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> getAllAccounts(@RequestParam(required = false) String filterParams) {
     log.info("getAllAccounts with operation {}", filterParams);
     Either<ErrorMessage, List<AccountResponse>> result =
@@ -56,13 +57,21 @@ public class ControllerExample {
         accountResponseList -> new ResponseEntity<>(accountResponseList, HttpStatus.OK));
   }
 
-  @GetMapping(
-          value = "/check/operations",
-          produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/check/operations", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> checkOperations() {
     log.info("checkOperations");
     checkBusinessRules.moreOperationsWithEither();
     log.trace("checkOperations finished");
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @GetMapping(value = "/get/account/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> getAccountById(@PathVariable("id") String id) {
+    log.info("getAccountById: {}", id);
+    Either<NewError, Account> result = checkBusinessRules.getAccountById(id);
+    log.trace("getAccountById finished with result: {}", result);
+    return result.fold(
+            errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
+            account -> new ResponseEntity<>(account, HttpStatus.OK));
   }
 }

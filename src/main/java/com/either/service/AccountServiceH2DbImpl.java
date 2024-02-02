@@ -1,6 +1,8 @@
 package com.either.service;
 
+import com.either.common.domain.NewError;
 import com.either.common.error.ErrorMessage;
+import com.either.common.utils.EitherUtils;
 import com.either.mapper.AccountMapper;
 import com.either.model.entity.Account;
 import com.either.repository.AccountRepository;
@@ -24,6 +26,11 @@ public class AccountServiceH2DbImpl implements AccountService {
   private final AccountRepository accountRepository;
   private final AccountMapper accountMapper;
 
+  record UserNotFound() implements NewError {}
+
+  record AccountNotFound() implements NewError {}
+
+  @Override
   public Either<ErrorMessage, List<com.either.common.domain.Account>> getAllApplyingFilter(
       String filters) {
     log.debug("get all accounts with filters: {}", filters);
@@ -55,5 +62,16 @@ public class AccountServiceH2DbImpl implements AccountService {
       log.error("Getting error while getting all accounts with error message: ", e);
       return Either.left(ErrorMessage.builder().error(e.getMessage()).code("GR-001").build());
     }
+  }
+
+  @Override
+  public Either<NewError, com.either.common.domain.Account> getAccountById(String accountId) {
+
+//    return EitherUtils.<NewError, com.either.common.domain.Account>of(
+//        accountRepository.findById(Long.valueOf(accountId)).map(accountMapper::mapModelToDomain),
+//        UserNotFound::new);
+    return EitherUtils.<NewError, com.either.common.domain.Account>of(
+        accountRepository.findById(Long.valueOf(accountId)).map(accountMapper::mapModelToDomain),
+        AccountNotFound::new);
   }
 }

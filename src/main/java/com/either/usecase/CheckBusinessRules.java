@@ -1,6 +1,7 @@
 package com.either.usecase;
 
 import com.either.common.domain.Account;
+import com.either.common.domain.NewError;
 import com.either.common.error.ErrorMessage;
 import com.either.common.exception.ResourceNotFoundException;
 import com.either.service.AccountService;
@@ -128,5 +129,9 @@ public class CheckBusinessRules {
         "---- * ------- \n Creating an Try instance from a computation that may throw an exception. \n 1/0: {} \n 1/1: {}",
         try1,
         try2);
+  }
+
+  public Either<NewError, Account> getAccountById(String id) {
+    return accountService.getAccountById(id);
   }
 }
