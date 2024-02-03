@@ -66,7 +66,7 @@ public class ControllerExample {
   public ResponseEntity<?> getAccountById(@PathVariable("id") String id) {
     log.info("getAccountById: {}", id);
     Either<NewError, Account> result = checkBusinessRules.getAccountById(id);
-    log.trace("getAccountById finished with result: {}", result);
+    log.debug("getAccountById finished with result: {}", result);
     return result.fold(
         errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
         account -> new ResponseEntity<>(account, HttpStatus.OK));
@@ -75,7 +75,7 @@ public class ControllerExample {
   @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> registerUser(
       @RequestParam String username, @RequestParam String password) {
-    log.trace("register user: {}", username);
+    log.info("register user: {}", username);
     //    Either<String, String> result =
     //            checkBusinessRules.checkPassword(password);
     Either<List<String>, String> result = checkBusinessRules.checkPassword(password);
@@ -83,5 +83,13 @@ public class ControllerExample {
     return result.fold(
         errorMessage -> new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST),
         okValidation -> new ResponseEntity<>(okValidation, HttpStatus.OK));
+  }
+
+  @GetMapping(value = "/custom/either", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> useCustomEither() {
+    log.trace("useCustomEither");
+    checkBusinessRules.useCustomEither();
+    log.trace("useCustomEither finished");
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }

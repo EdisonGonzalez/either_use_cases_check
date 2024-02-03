@@ -2,6 +2,7 @@ package com.either.usecase;
 
 import com.either.common.domain.Account;
 import com.either.common.domain.NewError;
+import com.either.common.either.CustomEither;
 import com.either.common.error.ErrorMessage;
 import com.either.common.exception.ResourceNotFoundException;
 import com.either.service.AccountService;
@@ -141,5 +142,29 @@ public class CheckBusinessRules {
   public Either<List<String>, String> checkPassword(String password) {
     // return registrationService.validatePassword(password);
     return registrationService.validatePassword2(password);
+  }
+
+  public void useCustomEither() {
+    CustomEither<String, Integer> either1 = CustomEither.left("Error"); // returns hash object
+    CustomEither<String, Integer> either2 = CustomEither.right(42); // returns hash object
+    log.info(
+        "Two CustomEither objects were created. \n either1: {} \n either2: {}", either1, either2);
+
+    String leftValue = either1.getLeft(); // Error
+    Integer rightValue = either2.getRight(); // 42
+    log.info(
+        "Getting the value of an CustomEither instance. \n either1.getLeft(): {} \n either2.getRight(): {}",
+        leftValue,
+        rightValue);
+
+    CustomEither<String, Integer> either3 = CustomEither.either(null, () -> 10);
+    boolean isLeft = either3.isLeft(); // false
+    boolean isRight = either3.isRight(); // true
+    log.info(
+        "Checking whether an CustomEither instance is a Left or a Right: \n either3.isLeft() {} \n either3.isRight(): {}",
+        isLeft,
+        isRight);
+    either3.run(
+        null, (i) -> log.info("Running consumer operation with logger. CustomEither.right({})", i));
   }
 }
