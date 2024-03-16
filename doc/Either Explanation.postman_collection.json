@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "d0afa944-1ca8-4751-b345-e2881e413277",
+		"name": "Either Explanation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5021142"
+	},
+	"item": [
+		{
+			"name": "v1.0",
+			"item": [
+				{
+					"name": "Validate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The main idea here is to be able to make use of an endpoint in which we use the Either class, which allows us to manage two response flows, one for a negative case and another for a positive case, these flows are activated with a random boolean variable."
+		},
+		{
+			"name": "v2.0",
+			"item": [
+				{
+					"name": "Error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/error",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"error"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The objective of this version is to allow the use of an endpoint that is using Spring's ControllerAdvice, for the management and control of responses."
+		},
+		{
+			"name": "v3.2",
+			"item": [
+				{
+					"name": "checkOperations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/check/operations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"check",
+								"operations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAccounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/get/all/accounts/operation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"get",
+								"all",
+								"accounts",
+								"operation"
+							],
+							"query": [
+								{
+									"key": "filterParams",
+									"value": "id = 0",
+									"description": "Account id does not exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "id = 1",
+									"description": "Account id if exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "id > 0",
+									"description": "All accounts major than zero, it if exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "id < 1",
+									"description": "Account id starts with 1 and it is incremental",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "arrangementId like AA23",
+									"description": "Account with arrangement Id like AA23. Account if exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "arrangementId like DD",
+									"description": "Account with arrangement Id contains DD. Account if exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "arrangementId = AA234567EE",
+									"description": "Account with arrangement id equal to AA234567EE does not exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "arrangement = AA234567EE",
+									"description": "Hanlde flow with Either",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "id > 0 and arrangementId = AA234567DD",
+									"description": "Multiple filters apply. There is account which accomplish filter",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "customerId > 1027888998",
+									"description": "Apply major numerically. Account if exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "customerId >= 1027889000",
+									"description": "Apply major or equal numerically. Account if exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "openingDate < 2023-05-23",
+									"description": "Apply minor in dates. There is an account",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "openingDate <= 2023-04-30",
+									"description": "Apply minor or equal in dates. Account does not exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "openingDate > 2023-05-01",
+									"description": "Apply major in dates. Account does not exist",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "openingDate >= 2023-05-01",
+									"description": "Apply major or equal in dates. There is an account",
+									"disabled": true
+								},
+								{
+									"key": "filterParams",
+									"value": "",
+									"description": "If it is empty, it's the same as not sending it",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The objective of the endpoints included here is to lead to a more real scenario where the JPA specification is used, the use of an h2 database and the use of multiple methods of the Either class.\n\nNOTES:\n\n1. Remember that to access the h2 database, by default you will find it in the port defined for your application /h2-console. This is, [http://localhost:8080/h2-console](http://localhost:8080/h2-console) for our case.\n2. In the resources you will find both the username and password and the initialized schema and program data."
+		},
+		{
+			"name": "v4.1",
+			"item": [
+				{
+					"name": "getAccountById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/get/account/id/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"get",
+								"account",
+								"id",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "1 exist, 2 does not exist"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The objective of the enpoint included here is to remind us that one of the use cases, apart from flows with two paths, can be a flow where data processing is done. That's why this endpoint only calls the database and maps entities to objects to expose.  \n  \nAnother point to highlight here is the use of records and interfaces to directly handle error types instead of exceptions."
+		},
+		{
+			"name": "v4.2",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/login?username=Edd&password=admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Edd"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"description": "Password must be at least 6 characters long.\n\n[\n    \"Password must be at least 6 characters long\",\n    \"Password must contain at least one capital letter\",\n    \"Password must contain at least one digit\"\n]"
+								},
+								{
+									"key": "password",
+									"value": "adminis",
+									"description": "Password must contain at least one capital letter",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Adminis",
+									"description": "Password must contain at least one digit",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Adminis1",
+									"description": "Adminis1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The goal of this endpoint is to demonstrate that one of the use cases is validation.\n\nIt has two versions 4.2.1, and 4.2.2 which we will call respectively version 1 and version 2.  \n  \nFor version 1, validation makes use of short-circuit evaluation, that is, it only finds the first inconsistency during validation, it does not continue.  \n  \nFor version 2, all errors are chained"
+		},
+		{
+			"name": "v5.0",
+			"item": [
+				{
+					"name": "checkCustomEither",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/custom/either",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"custom",
+								"either"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This version uses an endpoint as a trigger for a business case that will be displayed in the console, using its own customized Either class, so that it can use this type of functional logic but without the need to import libraries."
+		},
+		{
+			"name": "Actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
